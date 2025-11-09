@@ -87,7 +87,7 @@ for city in list(POSTCODES.keys()):
     found_items = 0
 
     # Going through each page
-    print(f"{city}\t-\t\t\t\t\t\t\t{get_timer()}")
+    print(f"{city}\t-\t\t\t\t\t{get_timer()}")
     for page in range(n_pagers):
 
         # Click pager
@@ -106,12 +106,12 @@ for city in list(POSTCODES.keys()):
 
         # Retry if there are too litle items
         if n_products < 70 and page != (n_pagers-1):
-            print(f"\t! found only {n_products}, retrying\t{get_timer()}")
+            print(f"\t! found only {n_products}, retrying\t\t{get_timer()}")
             time.sleep(3)
             inner = driver.find_element("class name", "list-view_content")
             n_products = len(inner.find_elements('class name', 'product-box-layout'))
         elif page == (n_pagers-1) and n_products < (total_items - found_items):
-            print(f"\t! found only {n_products}, retrying\t{get_timer()}")
+            print(f"\t! found only {n_products}, retrying\t\t{get_timer()}")
             time.sleep(3)
             inner = driver.find_element("class name", "list-view_content")
             n_products = len(inner.find_elements('class name', 'product-box-layout'))
@@ -125,7 +125,7 @@ for city in list(POSTCODES.keys()):
 
     df = compile_today("".join(htmls))
     df["timestamp"] = date
-    print(f"\t- Compiled\t\t\t\t\t{get_timer()}")
+    print(f"\t- Compiled\t\t\t{get_timer()}")
 
     df.to_csv(f"data/{city}.csv", index=False, header=False, mode="a")
-    print(f"\t- Saved\t\t\t\t\t\t{get_timer()}")
+    print(f"\t- Saved\t\t\t\t{get_timer()}")
