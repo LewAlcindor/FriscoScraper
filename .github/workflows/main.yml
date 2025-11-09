@@ -1,0 +1,44 @@
+name: Webscrape every hour
+
+on:
+  schedule:
+    - cron: "50 4-20 * * *"  # Runs hours 6-22 at minute 50
+  workflow_dispatch:
+
+permissions:
+  contents: write 
+
+jobs:
+  create-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+        
+      - name: Run Python script
+        run: python scraper.py
+
+      - name: Commit and push file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Add file for $(date +'%Y-%m-%d %H:00')" || echo "No changes to commit"
+          git push
