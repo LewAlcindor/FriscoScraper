@@ -36,6 +36,7 @@ def get_timer():
     current_time = time.time() - timer
     return f"{int(current_time)//60:02d}:{int(current_time)%60:02d}:{int(current_time%1*100):02d}"
 
+# Compiling raw html into dataframe
 def compile_today(raw_html):
     soup = BeautifulSoup(raw_html, features="html.parser")
     items = soup.find_all("div", class_="product-box_holder")
