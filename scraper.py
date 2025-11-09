@@ -14,7 +14,7 @@ CATS = ["c,18703/cat,warzywa-i-owoce/"]
 date = datetime.datetime.now().strftime("%d-%m-%Y %H-%M")
 
 options = Options()
-# options.add_argument("--headless")
+options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 
