@@ -1,5 +1,6 @@
 import time
 import datetime
+from datetime import datetime, timedelta
 from selenium.common import NoSuchElementException
 from selenium.webdriver import Chrome
 from selenium.common.exceptions import ElementNotInteractableException, ElementClickInterceptedException
@@ -11,7 +12,7 @@ from bs4 import BeautifulSoup
 # Initialization
 POSTCODES = {"WA1": "01-354", "WA3": "00-510", "WRO": "50-159", "GDA": "80-834", "KRA": "31-154"}
 CATS = ["c,18703/cat,warzywa-i-owoce/"]
-date = datetime.datetime.now().strftime("%d-%m-%Y %H-%M")
+date = (datetime.now() + timedelta(hours=1)).strftime("%d-%m-%Y %H-%M")
 
 options = Options()
 options.add_argument("--headless")
