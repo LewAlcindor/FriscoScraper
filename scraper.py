@@ -29,7 +29,7 @@ time.sleep(1)
 
 # Initial postcode
 driver.find_element("id", "postcode").send_keys(list(POSTCODES.values())[0])
-driver.find_element("xpath", "/html/body/div[1]/div/div[10]/div/div/div/div[2]/button").click()
+driver.find_element("css selector", "button[type='submit']").click()
 
 timer = time.time()
 
